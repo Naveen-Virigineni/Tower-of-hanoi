@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Tower of hanoi</title>
+	</head>
+	<body>
+		<div class="box">
+			<h1 class="hed">Tower Of Hanoi</h1>
+		</div>
+        <form id="num">
+  		  Number of Discs: <input type="number" name="n" id="n"><br>
+		</form>
+        <button type="button" onclick="main();">Play</button><br>
+		<canvas id="canvas" width="1500" height="1000"></canvas>
+		<script>
+			function main(){
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+                context.clearRect(0, 0, canvas.width, canvas.height);
+				var n = document.getElementById("num").elements["n"].value;
+				function Tower_of_hanoi(){
+                	var n = document.getElementById("num").elements["n"].value;
+                   // alert(n.value)
+                    var pole_x = 400
+                    var pole_y = 50
+                    var pole_height = 500
+                    var pole_width = 20
+                    var pole_gap = 400
+                    var line_width = 0
+                    var disc_width_diff = 40
+                    var disc_height = 20
+
+					for(i=0;i<3;i++){
+						context.fillStyle = "red";
+						context.strokeStyle = "blue";
+						context.lineWidth = line_width;
+						context.fillRect(pole_x + i * pole_gap, pole_y, pole_width, pole_height);
+						context.strokeRect(pole_x + i * pole_gap, pole_y, pole_width, pole_height);
+					}
+                    
+					for(i=0;i<n;i++){
+                    	var w_on_either_side = disc_width_diff*(n-i+1)/2 // Disc width on either side of the pole, excluding pole width
+						//context.rect(pole_x - w_on_either_side, pole_height + pole_y - i * line_width - (i+1)* disc_height, pole_width + 2 * w_on_either_side, disc_height);
+						context.fillStyle = "#" + (59*i).toString(16) + (56*i).toString(16) + (19*i).toString(16);
+						context.strokeStyle = "blue";
+						context.lineWidth = line_width;
+						context.fillRect(pole_x - w_on_either_side, pole_height + pole_y - i * line_width -(i+1)*disc_height, pole_width + 2 * w_on_either_side, disc_height);
+						context.strokeRect(pole_x - w_on_either_side, pole_height + pole_y - i * line_width -(i+1)*disc_height, pole_width + 2 * w_on_either_side, disc_height);
+						//console.log(pole_x - w_on_either_side, pole_height + pole_y - i * line_width -(i+1)*disc_height);
+					}
+
+				}
+
+				function move_disc(p,source,destination,mid)
+				{
+					var n = document.getElementById("num").elements["n"].value;
+					
+					var pole_x = 400
+                    var pole_y = 50
+                    var pole_height = 500
+                    var pole_width = 20
+                    var pole_gap = 400
+                    var line_width = 0
+                    var disc_width_diff = 40
+                    var disc_height = 20
+					var w_on_either_side = disc_width_diff*(n-p+1);
+					context.fillStyle = "red";
+					if(source=='A' && destination=='B'){
+						//context.clearRect(pole_x - w_on_either_side,(pole_height + pole_y - p * line_width -(p+1)*disc_height)+20,pole_width + 2 * w_on_either_side,disc_height);
+						//console.log(pole_x - w_on_either_side,(pole_height + pole_y - p * line_width -(p+1)*disc_height)+20)
+						for(i=0;i<400;i++){
+							setTimeout(function() {
+								
+								context.clearRect(pole_x - w_on_either_side,(pole_height + pole_y - p * line_width -(p+1)*disc_height)+20,pole_width + 2 * w_on_either_side,disc_height);
+								
+								context.fillRect(pole_x - w_on_either_side,(pole_height + pole_y - p * line_width -(p+1)*disc_height)-i,pole_width + 2 * w_on_either_side,disc_height);
+								context.strokeRect(pole_x - w_on_either_side,(pole_height + pole_y - p * line_width -(p+1)*disc_height)-i,pole_width + 2 * w_on_either_side,disc_height);
+							}, 1000);
+						}
+					}
+				}
+			Tower_of_hanoi();
+			move_disc(4,'A','B','C');
+		}
+		
+		</script>
+	</body>
+</html>
